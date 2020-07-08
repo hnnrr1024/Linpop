@@ -1,5 +1,5 @@
 #pragma once
-#include<mysql/jdbc.h>
+
 #include<vector>
 #include<string>
 #include"general.h"
