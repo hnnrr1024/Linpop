@@ -1,13 +1,13 @@
 #include"SqlInterface.h"
 
-
-
 Linpop::sqlInterface::sqlInterface() :driver(nullptr), con(nullptr), stmt(nullptr), res(nullptr) {
 	driver = get_driver_instance();
 	con = driver->connect("tcp://47.94.104.82:3306", "Neusoft", "123456"); // 需要修改为你数据库的用户密码
 	/* 连接 MySQL 数据库 Linpop  */
 	con->setSchema("Linpop");
 	stmt = con->createStatement();
+	stmt->execute("set names 'gbk'");
+	
 }
 
 Linpop::sqlInterface::~sqlInterface() {
@@ -22,12 +22,14 @@ Linpop::sqlInterface::~sqlInterface() {
 
 user Linpop::sqlInterface::logIn(string username, string pwd) {
 	user a;
+	string sqlstr = "SELECT * FROM user WHERE username = '" + username + "';";
 	try {
-		res = stmt->executeQuery("SELECT * FROM user WHERE username = '" + username + "';");
+		res = stmt->executeQuery(sqlstr);
+		cout << sqlstr << endl;
 		res->next();
 		if (res->getString("pwd") == pwd)
 			a = user{ res->getInt("ID"),res->getString("username"),res->getString("nickname") };
-		//cout << res << endl;
+		
 
 	}
 	catch (exception e) {
@@ -125,7 +127,6 @@ int Linpop::sqlInterface::sendMessage(int senderID, int receiverID, string messa
 	time_t it = time(NULL);
 	struct tm p;
 	localtime_s(&p, &it);
-
 	if (idate == "")
 		idate = to_string(p.tm_year + 1900) + "/" + to_string(p.tm_mon + 1) + "/" + to_string(p.tm_mday);
 	if (itime == "")
@@ -151,15 +152,14 @@ int Linpop::sqlInterface::sendMessage(int senderID, int receiverID, string messa
 		//res = stmt->executeQuery("SELECT * FROM user WHERE ID = (SELECT max(ID)FROM user)");
 		return 1;
 	}
-	catch (exception e) {
+	catch (sql::SQLException e) {
 		cout << "# ERR: SQLException in " << __FILE__;
 		cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
 		cout << "# ERR: " << e.what();
-		//cout << " (MySQL error code: " << e.getErrorCode();
-		//cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+		cout << " (MySQL error code: " << e.getErrorCode();
+		cout << ", SQLState: " << e.getSQLState() << " )" << endl;
 		return 0;
 	}
-
 	return 0;
 }
 
