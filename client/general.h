@@ -1,11 +1,14 @@
 #pragma once
 #include<string>
+//using namespace std;
 class user
 {
 public:
 	user():ID(0){};
-	user(int id,std::string username,std::string nickname=""):ID(id),username(username),nickname(nickname){};
-	int ID;
+	user(int id, std::string username,
+		std::string nickname = "",
+		std::string state = "",
+		std::string IP = "") :ID(id), username(username), nickname(nickname), state(state), IP(IP) {}; int ID;
 	std::string username;
 	std::string nickname;
 	std::string state;

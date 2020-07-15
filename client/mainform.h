@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
+#include "mysocket.h"
 class MainForm : public QMainWindow
 {
     Q_OBJECT

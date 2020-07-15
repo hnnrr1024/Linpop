@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>head.PNG</file>
+        <file>app.ico</file>
+        <file>User1.PNG</file>
+        <file>User2.PNG</file>
+        <file>User3.PNG</file>
+        <file>User4.png</file>
+        <file>User5.png</file>
+        <file>User6.png</file>
+        <file>User7.png</file>
+        <file>User8.png</file>
+        <file>User9.PNG</file>
+        <file>User10.PNG</file>
+    </qresource>
+</RCC>

@@ -43,6 +43,13 @@ user Linpop::sqlInterface::logIn(string username, string pwd) {
 }
 
 int Linpop::sqlInterface::signUp(string username, string pwd, string nickname) {
+	vector<user> users;
+	getUsers(users, 0);
+	for (auto i : users) {
+		if (i.username == username)
+			return 0;
+	}
+
 	string sqlstr = "INSERT INTO user(username, pwd, nickname)"\
 		" VALUES('" + username + "', '" + pwd + "', '" + nickname + "');";
 	cout << sqlstr << endl;

@@ -3,10 +3,18 @@
 #include "loginform.h"
 #include <QMessageBox>
 #include "registerform.h"
-#include "SqlInterface.h"
+#include "mainform.h"
+#include"panel.h"
+#include "personlistbuddy.h"
+#include "mainwindow.h"
+
+user me;
+vector<user> users;
+mutex rwlock;
 
 LoginForm::LoginForm(QDialog *parent) :
     QDialog(parent)
+
 {
     //设置窗体标题
     this->setWindowTitle(tr("登录界面"));
@@ -54,16 +62,19 @@ void LoginForm::login()
     //获得userNameLEd输入框的文本userNameLEd->text()；
     //trimmed()去掉前后空格
     //tr()函数，防止设置中文时乱码
-
-    Linpop::sqlInterface con;
+    mysocket con;
     string username = userNameLEd->text().trimmed().toStdString();
     string pwd = pwdLEd->text().toStdString();
-    user me = con.logIn(username, pwd);
-
-    if(me.ID!=0)
+    rwlock.lock();
+    int err = con.LogIn(username, pwd, me);
+    rwlock.unlock();
+    if (me.ID != 0)
     {
-       accept();//关闭窗体，并设置返回值为Accepted
-
+        MainWindow *mainwin;
+        mainwin = new MainWindow();
+        mainwin->show();
+        this->hide();
+        //this->close();
     } else {
        QMessageBox::warning(this, tr("警告！"),
                    tr("用户名或密码错误！"),
@@ -79,7 +90,7 @@ void LoginForm::login()
 void LoginForm::regis()//注册按钮槽函数，显示注册界面
 {
 
-   RegisterForm r;
-   r.exec();
+   Regist = new RegisterForm();
+   Regist->show();
 
 }

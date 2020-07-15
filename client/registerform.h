@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-
+#include "mysocket.h"
 
 
 class RegisterForm : public QDialog
@@ -20,12 +20,14 @@ signals:
 public slots:
     void regis();
     void exit();
-    void receivelogin();//显示主窗口槽函数
+
 private:
     QLabel *userNameLbl;
-    QLabel *pwdLbl;
-    QLineEdit *userNameLEd;
-    QLineEdit *pwdLEd;
+    QLabel* pwdLbl1;
+    QLabel* pwdLbl2;
+    QLineEdit* userNameLEd;
+    QLineEdit* pwdLEd1;
+    QLineEdit* pwdLEd2;
     QPushButton *regisBtn;
     QPushButton *exitBtn;
 };

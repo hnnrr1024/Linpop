@@ -5,13 +5,16 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-
-
+#include "mainform.h"
+#include "registerform.h"
+#include "panel.h"
 class LoginForm : public QDialog
 {
     Q_OBJECT
 public:
     explicit LoginForm(QDialog *parent = 0);
+
+
 
 signals:
     void registeredshow();
@@ -26,6 +29,10 @@ private:
     QLineEdit *pwdLEd;
     QPushButton *loginBtn;
     QPushButton *regisBtn;
+
+    MainForm *mainf;
+    RegisterForm *Regist;
+    panel *pan;
 };
 
 #endif // LOGINFORM_H

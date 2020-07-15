@@ -4,13 +4,22 @@
 #include<string>
 #include<ctime>
 #include"general.h"
-using namespace std;
+using std::string;
+using std::vector;
+using  std::cout;
+using  std::endl;
+using std::exception;
+using std::to_string;
+
+//extern user me;
+//extern  std::vector<user> users;
+//extern  std::vector<group> groups;
 namespace Linpop {
+
 	class sqlInterface {
 	public:
 		sqlInterface();
 		~sqlInterface();
-		sqlInterface(sqlInterface& a):driver(nullptr), con(nullptr), stmt(nullptr), res(nullptr) {};
 		user logIn(string username, string pwd);
 		int signUp(string username, string pwd, string nickname = "");
 		int setNickname(int userID, string nickname);
